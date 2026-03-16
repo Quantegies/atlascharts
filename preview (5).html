@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATLAS CHARTS — Join the Waitlist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500&family=Barlow+Condensed:wght@200;300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #040507;
+  --bg2:     #070910;
+  --panel:   #0b0e15;
+  --border:  rgba(143,166,191,0.16);
+  --border2: rgba(143,166,191,0.08);
+  --cyan:    #8fa6bf;
+  --amber:   #b7bcc4;
+  --red:     #d0d3d8;
+  --green:   #eef1f4;
+  --text:    #dce8f0;
+  --muted:   #6e7886;
+  --mono:    'IBM Plex Mono', monospace;
+  --head:    'Barlow Condensed', sans-serif;
+  --ui:      'Rajdhani', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--ui);overflow-x:hidden;cursor:crosshair}
+::selection{background:rgba(143,166,191,0.18)}
+::-webkit-scrollbar{width:2px}
+::-webkit-scrollbar-thumb{background:var(--cyan)}
+
+/* ── NAV ──────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;
+  background:rgba(4,5,7,0.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border2);
+}
+.nav-logo{
+  display:flex;
+  align-items:center;
+  min-height:24px;
+}
+.nav-logo-img{
+  height:24px;
+  width:auto;
+  display:block;
+  object-fit:contain;
+  filter:grayscale(1) brightness(1.18) contrast(1.08);
+}
+.nav-logo-fallback{
+  display:none;
+  font-family:var(--head);
+  font-size:17px;
+  font-weight:800;
+  letter-spacing:7px;
+  color:#fff;
+  text-transform:uppercase;
+}
+.nav-logo-fallback span{color:var(--cyan)}
+.nav-badge{
+  font-family:var(--mono);font-size:9px;letter-spacing:3px;
+  background:rgba(143,166,191,0.08);border:1px solid var(--border);
+  color:var(--cyan);padding:5px 14px;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;
+}
+.nav-badge-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:#eef1f4;
+  box-shadow:0 0 8px rgba(255,255,255,.65);
+  animation:blink 1.8s infinite
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* ── HERO ─────────────────────────────────────────── */
+#hero{
+  position:relative;width:100%;height:100vh;
+  overflow:hidden;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-vignette{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 65% at 50% 50%,transparent 0%,rgba(4,5,7,.62) 60%,var(--bg) 100%);
+}
+.scanlines{
+  position:absolute;inset:0;pointer-events:none;z-index:2;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.18) 2px,rgba(0,0,0,.18) 4px);
+}
+.hero-content{
+  position:relative;z-index:10;
+  text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;
+  padding:0 20px;
+}
+.hero-eyebrow{
+  font-family:var(--mono);font-size:10px;letter-spacing:5px;
+  color:var(--cyan);text-transform:uppercase;
+  opacity:0;animation:fadeUp .6s .4s forwards;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:0 0 30px;height:1px;background:var(--cyan);opacity:.5}
+.hero-title{
+  font-family:var(--head);
+  font-size:clamp(68px,10vw,138px);
+  font-weight:800;line-height:.9;letter-spacing:3px;
+  text-transform:uppercase;color:#fff;
+  opacity:0;animation:fadeUp .8s .6s forwards;
+}
+.hero-title .accent{color:#eef1f4;display:block}
+.hero-sub{
+  font-size:18px;font-weight:400;color:var(--muted);
+  max-width:520px;line-height:1.65;letter-spacing:.3px;
+  opacity:0;animation:fadeUp .8s .8s forwards;
+}
+.hero-stats{
+  display:flex;gap:0;border:1px solid var(--border);
+  opacity:0;animation:fadeUp .8s 1s forwards;
+}
+.hero-stat{
+  padding:18px 36px;border-right:1px solid var(--border2);
+  text-align:center;
+}
+.hero-stat:last-child{border-right:none}
+.hero-stat-num{
+  font-family:var(--head);font-size:40px;font-weight:800;
+  color:#eef1f4;letter-spacing:1px;display:block;line-height:1
+}
+.hero-stat-label{
+  font-family:var(--mono);font-size:9px;letter-spacing:3px;
+  color:var(--muted);text-transform:uppercase;margin-top:4px;display:block
+}
+
+/* WAITLIST BOX */
+.waitlist-box{
+  opacity:0;animation:fadeUp .8s 1.2s forwards;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  margin-top:8px;
+}
+.waitlist-label{font-family:var(--mono);font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase}
+.waitlist-form{display:flex;gap:0;border:1px solid var(--border)}
+.waitlist-input{
+  font-family:var(--mono);font-size:12px;letter-spacing:1px;
+  background:rgba(0,0,0,.5);border:none;outline:none;
+  color:var(--text);padding:14px 22px;width:280px;
+  caret-color:#eef1f4;
+}
+.waitlist-input::placeholder{color:var(--muted)}
+.waitlist-input:focus{background:rgba(143,166,191,.05)}
+.waitlist-btn{
+  font-family:var(--mono);font-size:11px;letter-spacing:3px;
+  background:#eef1f4;color:#000;border:none;
+  padding:14px 28px;cursor:pointer;text-transform:uppercase;
+  font-weight:700;white-space:nowrap;transition:opacity .2s;
+}
+.waitlist-btn:hover{opacity:.85}
+.waitlist-count{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted)}
+.waitlist-count span{color:#eef1f4}
+.waitlist-success{
+  display:none;font-family:var(--mono);font-size:11px;letter-spacing:3px;
+  color:#eef1f4;text-transform:uppercase;
+  padding:14px 28px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.04);
+}
+
+.scroll-hint{
+  position:absolute;bottom:28px;
+  font-family:var(--mono);font-size:9px;letter-spacing:3px;
+  color:var(--muted);text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:fadeIn 1s 2s both;
+}
+.scroll-line{
+  width:1px;height:36px;
+  background:linear-gradient(to bottom,#eef1f4,transparent);
+  animation:scanDown 1.6s 2.2s infinite
+}
+
+/* ── TICKER ───────────────────────────────────────── */
+.ticker-wrap{
+  background:var(--panel);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);
+  overflow:hidden;height:34px;display:flex;align-items:center;
+}
+.ticker-track{display:flex;animation:tickerRoll 36s linear infinite;white-space:nowrap}
+.ticker-item{
+  font-family:var(--mono);font-size:10px;letter-spacing:1px;
+  padding:0 24px;display:flex;align-items:center;gap:9px;
+  border-right:1px solid var(--border2);
+}
+.ticker-sym{color:#fff;font-weight:500}
+.ticker-val{color:var(--muted)}
+.ticker-chg.up{color:#eef1f4}
+.ticker-chg.dn{color:#b7bcc4}
+
+/* ── SECTION COMMONS ──────────────────────────────── */
+section{padding:110px 48px;position:relative}
+.section-tag{
+  font-family:var(--mono);font-size:9px;letter-spacing:4px;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:14px;
+  display:flex;align-items:center;gap:12px;
+}
+.section-tag::before{content:'';display:inline-block;width:20px;height:1px;background:var(--cyan)}
+.section-title{
+  font-family:var(--head);font-size:clamp(38px,5.5vw,70px);
+  font-weight:700;line-height:1;letter-spacing:2px;text-transform:uppercase;color:#fff;max-width:680px;
+}
+.section-title span{color:#eef1f4}
+.section-body{font-size:16px;line-height:1.8;color:var(--muted);max-width:540px;margin-top:18px}
+.grid-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(143,166,191,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(143,166,191,.03) 1px,transparent 1px);
+  background-size:64px 64px;
+}
+
+/* ── PAGE 2 — MONTE CARLO VIZ ─────────────────────── */
+#montecarlo{background:var(--bg2);overflow:hidden}
+.mc-layout{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;align-items:center;max-width:1300px;margin:0 auto;
+}
+.mc-visual{position:relative;height:520px}
+#mc-canvas{width:100%;height:100%;border:1px solid var(--border)}
+.mc-hud{
+  position:absolute;top:12px;left:12px;right:12px;
+  display:flex;justify-content:space-between;pointer-events:none;
+}
+.mc-hud-item{
+  font-family:var(--mono);font-size:9px;letter-spacing:2px;
+  color:var(--cyan);text-transform:uppercase;
+  background:rgba(4,5,7,.8);padding:4px 10px;border:1px solid var(--border2);
+}
+.mc-steps{display:flex;flex-direction:column;gap:0;margin-top:40px}
+.step{
+  display:grid;grid-template-columns:44px 1fr;gap:18px;padding:24px 0;
+  border-bottom:1px solid var(--border2);
+  opacity:0;transform:translateX(-18px);transition:opacity .5s,transform .5s;
+}
+.step.visible{opacity:1;transform:translateX(0)}
+.step-num{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--cyan);padding-top:3px}
+.step-title{font-family:var(--head);font-size:21px;font-weight:700;letter-spacing:1px;color:#fff;margin-bottom:5px;text-transform:uppercase}
+.step-desc{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* ── PAGE 3 — AGENT SWARM ─────────────────────────── */
+#agents{background:var(--bg);overflow:hidden}
+.agents-layout{max-width:1300px;margin:0 auto}
+.agents-top{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;margin-bottom:60px}
+#agent-canvas{
+  width:100%;height:460px;
+  border:1px solid var(--border);display:block;
+  position:relative;
+}
+.agent-legend{
+  margin-top:24px;display:flex;flex-direction:column;gap:10px;
+}
+.agent-legend-row{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--muted);
+}
+.agent-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* SIGNALS GRID */
+.signals-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border2);
+  border:1px solid var(--border2);
+}
+.signal-card{
+  background:var(--panel);padding:36px 32px;
+  position:relative;overflow:hidden;transition:background .3s;
+}
+.signal-card:hover{background:#0e1318}
+.signal-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:#eef1f4;transform:scaleX(0);transform-origin:left;transition:transform .4s;
+}
+.signal-card:hover::before{transform:scaleX(1)}
+.signal-icon{
+  font-family:var(--mono);font-size:10px;letter-spacing:3px;
+  color:var(--cyan);margin-bottom:18px;display:flex;align-items:center;gap:10px;
+}
+.signal-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#eef1f4;box-shadow:0 0 8px rgba(255,255,255,.7);animation:pulse 2s infinite;
+}
+.signal-name{font-family:var(--head);font-size:26px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:10px}
+.signal-desc{font-size:14px;color:var(--muted);line-height:1.65}
+.signal-metric{
+  margin-top:20px;font-family:var(--mono);font-size:10px;letter-spacing:2px;
+  color:#eef1f4;display:flex;align-items:center;gap:8px;
+}
+.signal-metric::before{content:'';width:14px;height:1px;background:#eef1f4}
+
+/* ── PAGE 4 — ARCHITECTURE ────────────────────────── */
+#arch{background:var(--bg2)}
+.arch-layout{max-width:1300px;margin:0 auto}
+.arch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:60px}
+.arch-card{
+  border:1px solid var(--border2);padding:32px 26px;background:var(--bg);
+  opacity:0;transform:translateY(20px);
+  transition:opacity .5s,transform .5s,border-color .3s;
+}
+.arch-card.visible{opacity:1;transform:translateY(0)}
+.arch-card:hover{border-color:rgba(255,255,255,.24)}
+.arch-card-num{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--cyan);margin-bottom:20px}
+.arch-card-title{font-family:var(--head);font-size:19px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:9px}
+.arch-card-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.arch-card-tag{margin-top:18px;font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#eef1f4;text-transform:uppercase;padding:3px 9px;border:1px solid var(--border);display:inline-block}
+.arch-wide{grid-column:span 2}
+
+/* ── PAGE 5 — FINAL WAITLIST ──────────────────────── */
+#waitlist-final{
+  background:var(--bg);min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+#wl-canvas{position:absolute;inset:0;width:100%;height:100%}
+.wl-vignette{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 0%,rgba(4,5,7,.75) 60%,var(--bg) 100%);
+}
+.wl-content{
+  position:relative;z-index:10;
+  max-width:780px;margin:0 auto;text-align:center;padding:0 20px;
+}
+.wl-tag{
+  font-family:var(--mono);font-size:9px;letter-spacing:4px;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:32px;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+}
+.wl-tag::before,.wl-tag::after{content:'';flex:0 0 28px;height:1px;background:var(--cyan);opacity:.5}
+.wl-title{
+  font-family:var(--head);font-size:clamp(44px,7vw,96px);
+  font-weight:800;line-height:.95;letter-spacing:2px;text-transform:uppercase;
+  color:#fff;margin-bottom:28px;
+}
+.wl-title span{color:#eef1f4}
+.wl-body{font-size:16px;line-height:1.85;color:var(--muted);margin-bottom:48px;max-width:580px;margin-left:auto;margin-right:auto}
+.wl-form-wrap{
+  border:1px solid var(--border);padding:40px;
+  background:rgba(4,5,7,.7);backdrop-filter:blur(12px);
+  margin-bottom:40px;
+}
+.wl-form-label{font-family:var(--mono);font-size:9px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:20px;display:block}
+.wl-form-row{display:flex;gap:0;border:1px solid var(--border);margin-bottom:16px}
+.wl-name-row{display:flex;gap:1px;margin-bottom:16px}
+.wl-input{
+  font-family:var(--mono);font-size:12px;letter-spacing:1px;
+  background:rgba(0,0,0,.4);border:none;outline:none;
+  color:var(--text);padding:13px 20px;flex:1;
+  caret-color:#eef1f4;border:1px solid var(--border2);
+}
+.wl-input::placeholder{color:var(--muted)}
+.wl-input:focus{background:rgba(143,166,191,.05);border-color:var(--border)}
+.wl-select{
+  font-family:var(--mono);font-size:11px;letter-spacing:1px;
+  background:rgba(0,0,0,.5);border:1px solid var(--border2);
+  color:var(--muted);padding:13px 20px;flex:1;outline:none;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
+}
+.wl-select:focus{border-color:var(--border);color:var(--text)}
+.wl-submit{
+  width:100%;font-family:var(--mono);font-size:12px;letter-spacing:4px;
+  background:#eef1f4;color:#000;border:none;
+  padding:16px;cursor:pointer;text-transform:uppercase;font-weight:700;
+  transition:opacity .2s;
+}
+.wl-submit:hover{opacity:.85}
+.wl-success{
+  display:none;padding:28px;border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.04);text-align:center;
+}
+.wl-success-title{font-family:var(--head);font-size:32px;font-weight:700;letter-spacing:2px;color:#eef1f4;margin-bottom:8px;text-transform:uppercase}
+.wl-success-body{font-family:var(--mono);font-size:11px;letter-spacing:2px;color:var(--muted)}
+.wl-pillars{display:flex;gap:0;border:1px solid var(--border2)}
+.wl-pillar{flex:1;padding:20px;border-right:1px solid var(--border2);text-align:left}
+.wl-pillar:last-child{border-right:none}
+.wl-pillar-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.wl-pillar-val{font-family:var(--head);font-size:22px;font-weight:700;color:#fff;letter-spacing:1px}
+.wl-pillar-val span{color:#eef1f4}
+
+/* ── FOOTER ───────────────────────────────────────── */
+footer{
+  background:var(--panel);border-top:1px solid var(--border2);
+  padding:32px 48px;display:flex;align-items:center;justify-content:space-between;
+}
+.footer-logo{font-family:var(--head);font-size:14px;font-weight:800;letter-spacing:6px;text-transform:uppercase;color:var(--muted)}
+.footer-logo span{color:var(--cyan)}
+.footer-copy{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted)}
+.footer-links{display:flex;gap:24px;font-family:var(--mono);font-size:9px;letter-spacing:2px}
+.footer-links a{color:var(--muted);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:#eef1f4}
+
+/* ── ANIMATIONS ───────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scanDown{
+  0%{transform:scaleY(0);transform-origin:top}
+  50%{transform:scaleY(1);transform-origin:top}
+  100%{transform:scaleY(0);transform-origin:bottom}
+}
+@keyframes tickerRoll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
+@keyframes glitch{
+  0%,93%,100%{transform:none;opacity:1}
+  94%{transform:translate(-3px,1px) skewX(3deg);opacity:.85}
+  95%{transform:translate(3px,-1px);opacity:1}
+  96%{transform:translate(-2px,2px) skewX(-2deg)}
+  97%{transform:translate(2px,1px)}
+}
+.glitch{animation:glitch 8s infinite;display:inline-block}
+
+@media(max-width:900px){
+  nav{padding:0 16px}
+  .nav-links{display:none}
+  section{padding:80px 16px}
+  .mc-layout,.agents-top{grid-template-columns:1fr}
+  .mc-visual,#agent-canvas{height:320px}
+  .signals-grid{grid-template-columns:1fr}
+  .arch-grid{grid-template-columns:1fr 1fr}
+  .arch-wide{grid-column:span 2}
+  .wl-pillars{flex-wrap:wrap}
+  .wl-pillar{min-width:50%}
+  footer{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img
+      src="logo.png"
+      alt="Atlas Charts"
+      class="nav-logo-img"
+      onerror="this.style.display='none'; document.querySelector('.nav-logo-fallback').style.display='block';"
+    >
+    <div class="nav-logo-fallback">ATLAS<span>.</span>CHARTS</div>
+  </div>
+  <div class="nav-badge">
+    <div class="nav-badge-dot"></div>
+    EARLY ACCESS — WAITLIST OPEN
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-vignette"></div>
+  <div class="scanlines"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">SIMULATION INTELLIGENCE PLATFORM</div>
+    <h1 class="hero-title">
+      <span class="glitch">ATLAS</span>
+      <span class="accent">CHARTS</span>
+    </h1>
+    <p class="hero-sub">
+      5,000 agent-based scenario simulations per symbol. Order flow, news, and chart structure — synthesised into the most probable path before price moves.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="c1">0</span>
+        <span class="hero-stat-label">Simulations / Run</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="c2">0</span>
+        <span class="hero-stat-label">Signal Layers</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num" id="c3">0</span>
+        <span class="hero-stat-label">Scenario Branches</span>
+      </div>
+    </div>
+    <div class="waitlist-box">
+      <div class="waitlist-label">Join the waitlist — early access Q3 2025</div>
+      <div class="waitlist-form" id="hero-wl-form">
+        <input class="waitlist-input" type="email" id="hero-email" placeholder="your@email.com" autocomplete="off">
+        <button class="waitlist-btn" onclick="heroJoin()">JOIN WAITLIST</button>
+      </div>
+      <div class="waitlist-success" id="hero-success">⬡ &nbsp;ACCESS RESERVED — WE'LL BE IN TOUCH</div>
+      <div class="waitlist-count">Joined by <span id="wl-count">847</span> operators so far</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>SCROLL</span>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap"><div class="ticker-track" id="ticker"></div></div>
+
+<!-- ═══════════════════ PAGE 2: MONTE CARLO ═══════════════════ -->
+<section id="montecarlo">
+  <div class="grid-bg"></div>
+  <div class="mc-layout">
+    <div class="mc-visual">
+      <canvas id="mc-canvas"></canvas>
+      <div class="mc-hud">
+        <div class="mc-hud-item" id="mc-run-count">RUNS: 0000</div>
+        <div class="mc-hud-item" id="mc-convergence">CONVERGENCE: —</div>
+        <div class="mc-hud-item" id="mc-status">SIMULATING...</div>
+      </div>
+    </div>
+    <div>
+      <div class="section-tag">MONTE CARLO ENGINE</div>
+      <h2 class="section-title">5,000 FUTURES.<br><span>ONE DECISION.</span></h2>
+      <p class="section-body">
+        Atlas doesn't give you one forecast. It runs the market 5,000 times from the current state — each simulation a complete, internally consistent play-out of price given all live inputs.
+      </p>
+      <div class="mc-steps">
+        <div class="step"><div class="step-num">01</div><div>
+          <div class="step-title">INGEST STATE</div>
+          <div class="step-desc">Order flow deltas, tape velocity, dark pool prints, and news sentiment are parsed into a unified market state tensor — the starting condition of every run.</div>
+        </div></div>
+        <div class="step"><div class="step-num">02</div><div>
+          <div class="step-title">SEED &amp; DIVERGE</div>
+          <div class="step-desc">5,000 runs launch from the same seed with micro-variations drawn from real volatility distributions. Each run is deterministic but unique.</div>
+        </div></div>
+        <div class="step"><div class="step-num">03</div><div>
+          <div class="step-title">MEASURE CONVERGENCE</div>
+          <div class="step-desc">Where runs cluster — conviction is high. Where they scatter — risk is elevated. The distribution itself is the signal, not any single path.</div>
+        </div></div>
+        <div class="step"><div class="step-num">04</div><div>
+          <div class="step-title">SURFACE TRIGGERS</div>
+          <div class="step-desc">Key price levels where simulation branches bifurcate are extracted and ranked. These are your decision nodes — not arbitrary lines.</div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PAGE 3: AGENT SWARM ═══════════════════ -->
+<section id="agents">
+  <div class="agents-layout">
+    <div class="section-tag">AGENT SIMULATION</div>
+    <h2 class="section-title">5,000 ACTORS.<br><span>COMPETING IN REAL TIME.</span></h2>
+    <p class="section-body">Each simulation run is populated by autonomous agents with distinct behavioral profiles — they compete, absorb, and react to each other exactly as market participants do.</p>
+
+    <div class="agents-top">
+      <div>
+        <canvas id="agent-canvas"></canvas>
+        <div class="agent-legend">
+          <div class="agent-legend-row"><div class="agent-legend-dot" style="background:#cfd7df;box-shadow:0 0 6px rgba(255,255,255,.45)"></div>MOMENTUM AGENTS — trend following, high velocity</div>
+          <div class="agent-legend-row"><div class="agent-legend-dot" style="background:#aeb6bf;box-shadow:0 0 6px rgba(255,255,255,.25)"></div>MEAN REVERSION — fade extended moves, absorb aggression</div>
+          <div class="agent-legend-row"><div class="agent-legend-dot" style="background:#8b949f;box-shadow:0 0 6px rgba(255,255,255,.18)"></div>ADVERSARIAL — stop hunters, liquidity raiders</div>
+          <div class="agent-legend-row"><div class="agent-legend-dot" style="background:#f0f3f6;box-shadow:0 0 8px rgba(255,255,255,.65)"></div>INFORMED — carry edge, drive directional conviction</div>
+        </div>
+      </div>
+      <div>
+        <div class="signals-grid">
+          <div class="signal-card">
+            <div class="signal-icon"><div class="signal-dot"></div>ORDER FLOW</div>
+            <div class="signal-name">TAPE &amp; MICROSTRUCTURE</div>
+            <div class="signal-desc">Real-time aggressor deltas, absorption events, hidden bid/offer stacking, and large print clustering. The tape is ground truth.</div>
+            <div class="signal-metric">50ms REFRESH</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-icon" style="color:#bcc3cb"><div class="signal-dot" style="background:#bcc3cb;box-shadow:0 0 8px rgba(255,255,255,.24)"></div>NEWS</div>
+            <div class="signal-name">VELOCITY &amp; SHOCK</div>
+            <div class="signal-desc">Headline velocity, entity NER, and cross-asset sentiment scoring. Atlas anticipates the market's reaction before it reprices.</div>
+            <div class="signal-metric" style="color:#bcc3cb">240ms CLASSIFY</div>
+          </div>
+          <div class="signal-card">
+            <div class="signal-icon" style="color:#eef1f4"><div class="signal-dot" style="background:#eef1f4;box-shadow:0 0 8px rgba(255,255,255,.65)"></div>STRUCTURE</div>
+            <div class="signal-name">GEOMETRY</div>
+            <div class="signal-desc">Volume profile, value area, swing geometry, and multi-TF confluence constrain the probability space in which agents compete.</div>
+            <div class="signal-metric" style="color:#eef1f4">4 TIMEFRAMES</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PAGE 4: ARCHITECTURE ═══════════════════ -->
+<section id="arch">
+  <div class="grid-bg"></div>
+  <div class="arch-layout">
+    <div class="section-tag">SYSTEM ARCHITECTURE</div>
+    <h2 class="section-title">NOT A BLACK BOX.<br><span>AN OPEN ENGINE.</span></h2>
+    <p class="section-body">Atlas is an ensemble of deterministic agent-based models with probabilistic inputs. Every output is traceable. Every decision is auditable.</p>
+    <div class="arch-grid">
+      <div class="arch-card" style="transition-delay:.05s">
+        <div class="arch-card-num">NODE / 01</div>
+        <div class="arch-card-title">Agent Runtime</div>
+        <div class="arch-card-desc">5,000 concurrent behavioral agents. Unique risk appetite, sizing rules, and microstructure reaction models per instance.</div>
+        <div class="arch-card-tag">CORE</div>
+      </div>
+      <div class="arch-card" style="transition-delay:.1s">
+        <div class="arch-card-num">NODE / 02</div>
+        <div class="arch-card-title">Flow Parser</div>
+        <div class="arch-card-desc">L2 ingestion with latency-compensated imbalance detection. Separates informed from uninformed flow at 50ms granularity.</div>
+        <div class="arch-card-tag">DATA</div>
+      </div>
+      <div class="arch-card" style="transition-delay:.15s">
+        <div class="arch-card-num">NODE / 03</div>
+        <div class="arch-card-title">News NLP</div>
+        <div class="arch-card-desc">Transformer pipeline scoring headlines by entity relevance, surprise factor, and historical price-impact correlation.</div>
+        <div class="arch-card-tag">ML</div>
+      </div>
+      <div class="arch-card" style="transition-delay:.2s">
+        <div class="arch-card-num">NODE / 04</div>
+        <div class="arch-card-title">Structure Map</div>
+        <div class="arch-card-desc">Multi-TF chart geometry identifying confluence zones, POCs, value areas, and swing nodes that constrain agent path selection.</div>
+        <div class="arch-card-tag">CHART</div>
+      </div>
+      <div class="arch-card arch-wide" style="transition-delay:.25s">
+        <div class="arch-card-num">NODE / 05</div>
+        <div class="arch-card-title">Scenario Tree Builder</div>
+        <div class="arch-card-desc">Generates bifurcating price paths from the simulation ensemble with Bayesian weighting. Rebuilds on every significant market event — not on a fixed timer. Scenarios are live and reactive.</div>
+        <div class="arch-card-tag">PROBABILITY ENGINE</div>
+      </div>
+      <div class="arch-card arch-wide" style="transition-delay:.3s">
+        <div class="arch-card-num">NODE / 06</div>
+        <div class="arch-card-title">Synthesis &amp; Intelligence</div>
+        <div class="arch-card-desc">Aggregates 5,000 outcomes into ranked scenario distributions. Surfaces trigger levels, invalidation zones, and time-based probability windows. An operator-grade interface designed for clarity under pressure — not noise.</div>
+        <div class="arch-card-tag">OUTPUT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PAGE 5: FINAL WAITLIST ═══════════════════ -->
+<section id="waitlist-final">
+  <canvas id="wl-canvas"></canvas>
+  <div class="wl-vignette"></div>
+  <div class="scanlines" style="opacity:.3"></div>
+  <div class="wl-content">
+    <div class="wl-tag">EARLY ACCESS</div>
+    <h2 class="wl-title">SECURE YOUR<br><span>POSITION</span></h2>
+    <p class="wl-body">
+      Atlas Charts is not publicly available. We are building with a closed cohort of operators — traders, quant researchers, and prop desks — before we open further. If that's you, get on the list now.
+    </p>
+    <div class="wl-form-wrap">
+      <div id="wl-final-form">
+        <div class="wl-form-label">Reserve your early access position</div>
+        <div class="wl-name-row">
+          <input class="wl-input" id="wl-fname" type="text" placeholder="First name">
+          <input class="wl-input" id="wl-lname" type="text" placeholder="Last name">
+        </div>
+        <input class="wl-input" id="wl-email" type="email" placeholder="Work or trading email" style="width:100%;margin-bottom:16px;display:block">
+        <select class="wl-select" id="wl-role" style="width:100%;margin-bottom:20px;display:block">
+          <option value="" disabled selected>I am a... (select role)</option>
+          <option>Retail Trader</option>
+          <option>Prop Desk / Funded Trader</option>
+          <option>Quant Researcher</option>
+          <option>Portfolio Manager</option>
+          <option>Day Trader / Scalper</option>
+          <option>Swing / Position Trader</option>
+          <option>Developer / Algo Builder</option>
+          <option>Other</option>
+        </select>
+        <button class="wl-submit" onclick="finalJoin()">JOIN THE WAITLIST — SECURE POSITION</button>
+      </div>
+      <div class="wl-success" id="wl-final-success">
+        <div class="wl-success-title">⬡ ACCESS RESERVED</div>
+        <div class="wl-success-body">YOUR POSITION IS SECURED — WE'LL REACH OUT BEFORE LAUNCH</div>
+      </div>
+    </div>
+    <div class="wl-pillars">
+      <div class="wl-pillar">
+        <div class="wl-pillar-label">FOUNDATION</div>
+        <div class="wl-pillar-val">Agent-<span>Based</span></div>
+      </div>
+      <div class="wl-pillar">
+        <div class="wl-pillar-label">METHOD</div>
+        <div class="wl-pillar-val">Monte <span>Carlo</span></div>
+      </div>
+      <div class="wl-pillar">
+        <div class="wl-pillar-label">TRANSPARENCY</div>
+        <div class="wl-pillar-val">Fully <span>Auditable</span></div>
+      </div>
+      <div class="wl-pillar">
+        <div class="wl-pillar-label">ACCESS</div>
+        <div class="wl-pillar-val">Invite <span>Only</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ATLAS<span>.</span>CHARTS</div>
+  <div class="footer-copy">© 2025 ATLAS CHARTS — EARLY ACCESS BUILD</div>
+  <div class="footer-links">
+    <a href="#">ABOUT</a>
+    <a href="#waitlist-final">WAITLIST</a>
+    <a href="#">CONTACT</a>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   HERO CANVAS — Node graph with data streams
+═══════════════════════════════════════════════════════ */
+(function(){
+  const cv = document.getElementById('hero-canvas');
+  const cx = cv.getContext('2d');
+  let W,H,nodes;
+  const mouse = {x:-9999,y:-9999};
+  const COLS = ['220,230,240','180,190,205','240,240,240','150,160,175','90,100,115'];
+
+  function resize(){
+    W=cv.width=cv.offsetWidth;
+    H=cv.height=cv.offsetHeight;
+    nodes = Array.from({length:160},()=>({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.3, vy:(Math.random()-.5)*.3,
+      r:Math.random()*2.6+.7, phase:Math.random()*Math.PI*2,
+      t:Math.random()<.42?0:Math.random()<.66?1:Math.random()<.84?2:Math.random()<.95?3:4,
+    }));
+  }
+
+  const streams = Array.from({length:24},()=>({
+    x:Math.random()*window.innerWidth,
+    y:Math.random()*window.innerHeight,
+    speed:Math.random()*.8+.3,
+    len:Math.floor(Math.random()*6+3),
+    chars:[],
+    alpha:Math.random()*.28+.08,
+    col:Math.random()<.75?'220,230,240':'160,172,186',
+  }));
+  const CHARS = '01ΔΨΩΛΣ∞≈∂∇⊕⊗█▓▒░';
+
+  function initStream(s){
+    s.x=Math.random()*W; s.y=0;
+    s.chars=Array.from({length:s.len},()=>CHARS[Math.floor(Math.random()*CHARS.length)]);
+  }
+
+  function frame(){
+    cx.clearRect(0,0,W,H);
+
+    streams.forEach(s=>{
+      s.y+=s.speed;
+      if(s.y>H+60) initStream(s);
+      if(Math.random()<.04) s.chars[Math.floor(Math.random()*s.chars.length)]=CHARS[Math.floor(Math.random()*CHARS.length)];
+      s.chars.forEach((ch,i)=>{
+        const a = (1-i/s.len)*s.alpha;
+        cx.font=`${10+i*1}px 'IBM Plex Mono'`;
+        cx.fillStyle=`rgba(${s.col},${a})`;
+        cx.fillText(ch,s.x,s.y-i*14);
+      });
+    });
+
+    nodes.forEach(n=>{
+      n.x+=n.vx; n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+      n.phase+=.016;
+    });
+
+    for(let i=0;i<nodes.length;i++) for(let j=i+1;j<nodes.length;j++){
+      const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<160){
+        const a=(1-d/160)*.16;
+        cx.beginPath();
+        cx.moveTo(nodes[i].x,nodes[i].y);
+        cx.lineTo(nodes[j].x,nodes[j].y);
+        cx.strokeStyle=`rgba(${COLS[nodes[i].t]},${Math.min(0.34,a+0.08)})`;
+        cx.lineWidth=.8;
+        cx.stroke();
+      }
+    }
+
+    nodes.forEach(n=>{
+      const dx=n.x-mouse.x, dy=n.y-mouse.y, d=Math.sqrt(dx*dx+dy*dy);
+      if(d<200){
+        cx.beginPath();
+        cx.moveTo(n.x,n.y);
+        cx.lineTo(mouse.x,mouse.y);
+        cx.strokeStyle=`rgba(235,240,245,${(1-d/200)*.42})`;
+        cx.lineWidth=.9;
+        cx.stroke();
+      }
+    });
+
+    nodes.forEach(n=>{
+      const b=Math.sin(n.phase)*.35+.65;
+      cx.shadowColor = 'rgba(255,255,255,0.42)';
+      cx.shadowBlur = 10;
+      cx.beginPath();
+      cx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      cx.fillStyle=`rgba(${COLS[n.t]},${Math.min(1,b+0.35)})`;
+      cx.fill();
+      cx.shadowBlur = 0;
+    });
+
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize',resize);
+  window.addEventListener('mousemove',e=>{
+    const r=cv.getBoundingClientRect();
+    mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top;
+  });
+  resize();
+  streams.forEach(initStream);
+  frame();
+})();
+
+/* ═══════════════════════════════════════════════════════
+   MONTE CARLO CANVAS — branching probability paths
+═══════════════════════════════════════════════════════ */
+(function(){
+  const cv = document.getElementById('mc-canvas');
+  const cx = cv.getContext('2d');
+  let W,H;
+  let paths=[], tick=0, runCount=0, phase='building';
+  const HUD_RUN = document.getElementById('mc-run-count');
+  const HUD_CONV = document.getElementById('mc-convergence');
+  const HUD_STAT = document.getElementById('mc-status');
+
+  function resize(){
+    W=cv.width=cv.offsetWidth;
+    H=cv.height=cv.offsetHeight;
+    rebuild();
+  }
+
+  function genPath(startY,vol,drift,steps){
+    const pts=[{x:0,y:startY}];
+    let y=startY;
+    for(let i=1;i<=steps;i++){
+      y+=drift+(Math.random()-.5)*vol;
+      y=Math.max(8,Math.min(H-8,y));
+      pts.push({x:(W-10)*(i/steps)+5,y});
+    }
+    return pts;
+  }
+
+  function rebuild(){
+    paths=[]; tick=0; runCount=0; phase='building';
+    const mid=H*.5;
+    const clusters=[
+      {drift:-H*.006,vol:H*.03,col:'220,230,240',weight:.45},
+      {drift:-H*.003,vol:H*.025,col:'180,190,205',weight:.2},
+      {drift:H*.001,vol:H*.02,col:'170,178,188',weight:.18},
+      {drift:H*.005,vol:H*.035,col:'130,140,152',weight:.12},
+      {drift:H*.009,vol:H*.04,col:'245,245,245',weight:.05},
+    ];
+    clusters.forEach(cl=>{
+      const n=Math.round(50*cl.weight+(Math.random()*10));
+      for(let i=0;i<n;i++){
+        paths.push({
+          pts:genPath(mid+(Math.random()-0.5)*H*.05,cl.vol,cl.drift+(Math.random()-.5)*H*.002,60),
+          a:Math.random()*.12+.04, col:cl.col, speed:Math.random()*.4+.6,
+          drawn:0,
+        });
+      }
+    });
+    paths.push({
+      pts:genPath(mid,H*.012,-H*.007,60),
+      a:1,col:'245,245,245',main:true,speed:1,drawn:0,
+    });
+  }
+
+  let frameN=0;
+  function frame(){
+    cx.clearRect(0,0,W,H);
+
+    cx.strokeStyle='rgba(143,166,191,0.04)'; cx.lineWidth=1;
+    for(let y=0;y<H;y+=40){cx.beginPath();cx.moveTo(0,y);cx.lineTo(W,y);cx.stroke()}
+    for(let x=0;x<W;x+=50){cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,H);cx.stroke()}
+
+    cx.strokeStyle='rgba(235,240,245,0.1)'; cx.setLineDash([4,8]);
+    cx.beginPath(); cx.moveTo(0,H*.5); cx.lineTo(W,H*.5); cx.stroke();
+    cx.setLineDash([]);
+
+    cx.font="9px 'IBM Plex Mono'"; cx.fillStyle='rgba(220,230,240,0.35)';
+    cx.fillText('CURRENT',6,H*.5-6);
+
+    paths.forEach(p=>{
+      if(phase==='building'&&p.drawn<p.pts.length){
+        p.drawn=Math.min(p.pts.length,p.drawn+p.speed*1.2);
+      }
+      const end=Math.floor(p.drawn);
+      if(end<2) return;
+      cx.beginPath(); cx.moveTo(p.pts[0].x,p.pts[0].y);
+      for(let i=1;i<end;i++) cx.lineTo(p.pts[i].x,p.pts[i].y);
+      cx.strokeStyle=`rgba(${p.col},${p.main?1:p.a})`;
+      cx.lineWidth=p.main?2:.5;
+      cx.stroke();
+    });
+
+    const allDone=paths.every(p=>p.drawn>=p.pts.length*.95);
+    if(allDone && phase==='building') phase='done';
+
+    if(phase==='done'){
+      const bulls=paths.filter(p=>p.col==='220,230,240'&&!p.main);
+      if(bulls.length>4){
+        const topY=bulls.reduce((m,p)=>Math.min(m,p.pts[p.pts.length-1].y),Infinity);
+        const botY=bulls.reduce((m,p)=>Math.max(m,p.pts[p.pts.length-1].y),-Infinity);
+        const grad=cx.createLinearGradient(W*.7,0,W,0);
+        grad.addColorStop(0,'rgba(220,230,240,0)');
+        grad.addColorStop(1,'rgba(220,230,240,0.08)');
+        cx.fillStyle=grad;
+        cx.beginPath(); cx.moveTo(W*.7,H*.5);
+        cx.lineTo(W,topY-10); cx.lineTo(W,botY+10); cx.closePath(); cx.fill();
+      }
+    }
+
+    runCount=Math.min(runCount+(phase==='building'?18:0),5000);
+    HUD_RUN.textContent=`RUNS: ${String(Math.round(runCount)).padStart(4,'0')}`;
+    if(phase==='done'){
+      HUD_CONV.textContent='CONVERGENCE: PRIMARY 68%';
+      HUD_STAT.textContent='COMPLETE ✓';
+      HUD_STAT.style.color='var(--green)';
+    } else {
+      HUD_CONV.textContent='CONVERGENCE: COMPUTING...';
+      HUD_STAT.textContent='SIMULATING...';
+      HUD_STAT.style.color='var(--cyan)';
+    }
+
+    frameN++;
+    if(frameN>360){ frameN=0; rebuild(); }
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize',resize);
+  resize(); frame();
+})();
+
+/* ═══════════════════════════════════════════════════════
+   AGENT CANVAS — swarm simulation
+═══════════════════════════════════════════════════════ */
+(function(){
+  const cv=document.getElementById('agent-canvas');
+  const cx=cv.getContext('2d');
+  let W,H,agents=[];
+
+  const TYPES=[
+    {col:'220,230,240',name:'MOMENTUM',r:3.5,speed:1.4,attract:.015},
+    {col:'180,190,205',name:'MEAN REV',r:3,speed:.9,attract:-.008},
+    {col:'130,140,152',name:'ADVERSARIAL',r:2.5,speed:1.8,attract:.0},
+    {col:'245,245,245',name:'INFORMED',r:4,speed:.7,attract:.025},
+  ];
+
+  function resize(){
+    W=cv.width=cv.offsetWidth;
+    H=cv.height=cv.offsetHeight;
+    buildAgents();
+  }
+
+  function buildAgents(){
+    agents=[];
+    TYPES.forEach((t,ti)=>{
+      const count=[60,50,45,30][ti];
+      for(let i=0;i<count;i++){
+        const angle=Math.random()*Math.PI*2;
+        const spd=t.speed*(Math.random()*.5+.75);
+        agents.push({
+          x:Math.random()*W, y:Math.random()*H,
+          vx:Math.cos(angle)*spd, vy:Math.sin(angle)*spd,
+          type:ti, r:t.r*(Math.random()*.3+.85),
+          phase:Math.random()*Math.PI*2,
+          energy:Math.random(),
+          trail:[],
+        });
+      }
+    });
+  }
+
+  let attractorY, attractorPhase=0;
+
+  function frame(){
+    cx.clearRect(0,0,W,H);
+
+    cx.strokeStyle='rgba(143,166,191,0.03)'; cx.lineWidth=1;
+    for(let y=0;y<H;y+=36){cx.beginPath();cx.moveTo(0,y);cx.lineTo(W,y);cx.stroke()}
+    for(let x=0;x<W;x+=44){cx.beginPath();cx.moveTo(x,0);cx.lineTo(x,H);cx.stroke()}
+
+    attractorPhase+=.008;
+    attractorY = H*.5 + Math.sin(attractorPhase)*H*.12;
+    cx.strokeStyle='rgba(235,240,245,0.15)'; cx.setLineDash([3,7]);
+    cx.beginPath(); cx.moveTo(0,attractorY); cx.lineTo(W,attractorY); cx.stroke();
+    cx.setLineDash([]);
+    cx.font="9px 'IBM Plex Mono'"; cx.fillStyle='rgba(220,230,240,0.4)';
+    cx.fillText('PRICE',6,attractorY-6);
+
+    agents.forEach(a=>{
+      const t=TYPES[a.type];
+      const dy=attractorY-a.y;
+      a.vy+=dy*t.attract*(Math.random()*.02);
+
+      agents.forEach(b=>{
+        if(b===a) return;
+        const dx=a.x-b.x, dy2=a.y-b.y;
+        const d=Math.sqrt(dx*dx+dy2*dy2);
+        if(d<30&&d>1){
+          a.vx+=(dx/d)*.05;
+          a.vy+=(dy2/d)*.05;
+        }
+        if(a.type===0&&b.type===3&&d<80){
+          a.vx+=(b.x-a.x)/d*.01;
+          a.vy+=(b.y-a.y)/d*.01;
+        }
+      });
+
+      const spd=Math.sqrt(a.vx*a.vx+a.vy*a.vy);
+      const maxSpd=t.speed*2;
+      if(spd>maxSpd){a.vx=(a.vx/spd)*maxSpd; a.vy=(a.vy/spd)*maxSpd}
+      if(spd<.1){a.vx+=(Math.random()-.5)*.2; a.vy+=(Math.random()-.5)*.2}
+
+      a.x+=a.vx; a.y+=a.vy;
+      if(a.x<0){a.x=0;a.vx*=-1} if(a.x>W){a.x=W;a.vx*=-1}
+      if(a.y<0){a.y=0;a.vy*=-1} if(a.y>H){a.y=H;a.vy*=-1}
+
+      a.phase+=.04;
+      a.trail.push({x:a.x,y:a.y});
+      if(a.trail.length>12) a.trail.shift();
+    });
+
+    agents.forEach(a=>{
+      if(a.trail.length<2) return;
+      const col=COLS_AGENT[a.type];
+      cx.beginPath(); cx.moveTo(a.trail[0].x,a.trail[0].y);
+      for(let i=1;i<a.trail.length;i++) cx.lineTo(a.trail[i].x,a.trail[i].y);
+      cx.strokeStyle=`rgba(${col},0.08)`; cx.lineWidth=1; cx.stroke();
+    });
+
+    agents.forEach(a=>{
+      const b=Math.sin(a.phase)*.3+.7;
+      const col=COLS_AGENT[a.type];
+      cx.beginPath(); cx.arc(a.x,a.y,a.r,0,Math.PI*2);
+      cx.fillStyle=`rgba(${col},${b})`; cx.fill();
+    });
+
+    if(Math.random()<.15){
+      const a=agents[Math.floor(Math.random()*agents.length)];
+      const b=agents[Math.floor(Math.random()*agents.length)];
+      const dx=a.x-b.x, dy=a.y-b.y;
+      if(Math.sqrt(dx*dx+dy*dy)<60){
+        cx.beginPath(); cx.moveTo(a.x,a.y); cx.lineTo(b.x,b.y);
+        cx.strokeStyle='rgba(255,255,255,0.15)'; cx.lineWidth=.5; cx.stroke();
+      }
+    }
+
+    cx.font="9px 'IBM Plex Mono'"; cx.fillStyle='rgba(220,230,240,0.4)';
+    cx.fillText(`ACTIVE AGENTS: ${agents.length}`, 8, H-10);
+
+    requestAnimationFrame(frame);
+  }
+
+  const COLS_AGENT=['220,230,240','180,190,205','130,140,152','245,245,245'];
+
+  window.addEventListener('resize',resize);
+  resize(); frame();
+})();
+
+/* ═══════════════════════════════════════════════════════
+   WAITLIST CANVAS — particle field
+═══════════════════════════════════════════════════════ */
+(function(){
+  const cv=document.getElementById('wl-canvas');
+  const cx=cv.getContext('2d');
+  let W,H,particles=[];
+
+  function resize(){
+    W=cv.width=cv.offsetWidth;
+    H=cv.height=cv.offsetHeight;
+    particles=Array.from({length:60},()=>({
+      x:Math.random()*W, y:Math.random()*H,
+      vx:(Math.random()-.5)*.2, vy:(Math.random()-.5)*.2,
+      r:Math.random()*1.5+.4, phase:Math.random()*Math.PI*2,
+    }));
+  }
+
+  function frame(){
+    cx.clearRect(0,0,W,H);
+    particles.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.phase+=.012;
+      if(p.x<0||p.x>W)p.vx*=-1;
+      if(p.y<0||p.y>H)p.vy*=-1;
+    });
+    for(let i=0;i<particles.length;i++) for(let j=i+1;j<particles.length;j++){
+      const dx=particles[i].x-particles[j].x, dy=particles[i].y-particles[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<160){
+        cx.beginPath(); cx.moveTo(particles[i].x,particles[i].y); cx.lineTo(particles[j].x,particles[j].y);
+        cx.strokeStyle=`rgba(220,230,240,${(1-d/160)*.07})`; cx.lineWidth=.5; cx.stroke();
+      }
+    }
+    particles.forEach(p=>{
+      cx.beginPath(); cx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      cx.fillStyle=`rgba(220,230,240,${Math.sin(p.phase)*.3+.3})`; cx.fill();
+    });
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize',resize);
+  resize(); frame();
+})();
+
+/* ═══════════════════════════════════════════════════════
+   COUNTER ANIMATION
+═══════════════════════════════════════════════════════ */
+function countTo(el, target, duration, suffix=''){
+  let start=null;
+  function step(ts){
+    if(!start)start=ts;
+    const p=Math.min((ts-start)/duration,1);
+    const ease=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(ease*target).toLocaleString()+suffix;
+    if(p<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+setTimeout(()=>{
+  countTo(document.getElementById('c1'),5000,1800,'');
+  setTimeout(()=>countTo(document.getElementById('c2'),3,700,''),100);
+  setTimeout(()=>countTo(document.getElementById('c3'),99,1400,'+'),200);
+},1200);
+
+/* ═══════════════════════════════════════════════════════
+   SCROLL REVEALS
+═══════════════════════════════════════════════════════ */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:.1});
+document.querySelectorAll('.step,.arch-card').forEach(el=>obs.observe(el));
+
+/* ═══════════════════════════════════════════════════════
+   TICKER
+═══════════════════════════════════════════════════════ */
+(function(){
+  const data=[
+    {sym:'NVDA',val:'148.32',chg:'+2.41%',up:true},
+    {sym:'TSLA',val:'241.90',chg:'-1.08%',up:false},
+    {sym:'AAPL',val:'212.55',chg:'+0.74%',up:true},
+    {sym:'SPX', val:'5,312', chg:'+0.35%',up:true},
+    {sym:'QQQ', val:'458.11',chg:'+0.52%',up:true},
+    {sym:'MSFT',val:'415.60',chg:'-0.22%',up:false},
+    {sym:'META',val:'560.80',chg:'+1.93%',up:true},
+    {sym:'AMZN',val:'208.44',chg:'+0.68%',up:true},
+    {sym:'AMD', val:'162.30',chg:'-0.90%',up:false},
+    {sym:'GOOG',val:'183.12',chg:'+0.44%',up:true},
+    {sym:'BTC', val:'67,420',chg:'+3.12%',up:true},
+    {sym:'GLD', val:'182.40',chg:'+0.18%',up:true},
+  ];
+  const t=document.getElementById('ticker');
+  t.innerHTML=[...data,...data].map(d=>
+    `<span class="ticker-item"><span class="ticker-sym">${d.sym}</span><span class="ticker-val">${d.val}</span><span class="ticker-chg ${d.up?'up':'dn'}">${d.chg}</span></span>`
+  ).join('');
+})();
+
+/* ═══════════════════════════════════════════════════════
+   WAITLIST FORMS
+═══════════════════════════════════════════════════════ */
+let wlCount=847;
+
+function heroJoin(){
+  const email=document.getElementById('hero-email').value.trim();
+  if(!email||!email.includes('@')){
+    document.getElementById('hero-email').style.borderColor='var(--red)';
+    setTimeout(()=>document.getElementById('hero-email').style.borderColor='',1500);
+    return;
+  }
+  document.getElementById('hero-wl-form').style.display='none';
+  document.getElementById('hero-success').style.display='block';
+  wlCount++;
+  document.getElementById('wl-count').textContent=wlCount;
+}
+
+function finalJoin(){
+  const email=document.getElementById('wl-email').value.trim();
+  if(!email||!email.includes('@')){
+    document.getElementById('wl-email').style.borderColor='var(--red)';
+    setTimeout(()=>document.getElementById('wl-email').style.borderColor='',1500);
+    return;
+  }
+  document.getElementById('wl-final-form').style.display='none';
+  document.getElementById('wl-final-success').style.display='block';
+  wlCount++;
+  document.getElementById('wl-count').textContent=wlCount;
+}
+</script>
+</body>
+</html>
